@@ -25,7 +25,6 @@ function App() {
       >
         Show info
       </button>
-
       {ToastComponent}
     </>
   );

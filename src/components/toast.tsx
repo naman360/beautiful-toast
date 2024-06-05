@@ -1,14 +1,21 @@
 import styles from "../styles/toast.module.css";
 
-type ToastType = "success" | "error" | "info" | "warning";
-type ToastPosition = "bottom-right" | "bottom-left" | "top-right" | "top-left";
+export type ToastType = "success" | "error" | "info" | "warning";
+export type ToastPosition =
+  | "bottom-right"
+  | "bottom-left"
+  | "top-right"
+  | "top-left";
+
 export type ToastDataType = {
+  id: string;
   type: ToastType;
   message: string;
   duration: number;
   position?: ToastPosition;
   onClose?: () => void;
 };
+
 type Props = ToastDataType;
 
 const Toast = ({
