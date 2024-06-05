@@ -12,7 +12,6 @@ export type ToastDataType = {
   type: ToastType;
   message: string;
   duration: number;
-  position?: ToastPosition;
   onClose?: () => void;
 };
 
@@ -22,19 +21,16 @@ const Toast = ({
   type = "info",
   message = "This is an info",
   onClose,
-  position = "bottom-right",
 }: Props) => {
   const handleClose = () => {
     if (typeof onClose === "function") onClose();
   };
   return (
-    <div className={styles[position]}>
-      <div className={`${styles.toastContainer} ${styles[type]}`}>
-        {message}
-        <span onClick={() => handleClose()} className={styles.closeButton}>
-          &times;
-        </span>
-      </div>
+    <div className={`${styles.toastContainer} ${styles[type]}`}>
+      {message}
+      <span onClick={() => handleClose()} className={styles.closeButton}>
+        &times;
+      </span>
     </div>
   );
 };

@@ -1,9 +1,11 @@
 .toastContainer {
   font-family: sans-serif;
   padding: 10px;
+  min-width: 200px;
   margin: 10px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-radius: 5px;
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -28,6 +30,7 @@
   align-items: center;
 }
 .bottom-right {
+  position: fixed;
   bottom: 20px;
   right: 20px;
 }
