@@ -9,19 +9,27 @@ import styles from "../styles/toast.module.css";
 
 const useToast = (position: ToastPosition) => {
   const [toastList, setToastList] = useState<ToastDataType[]>([]);
-  let timerRef = useRef<null | number>(null);
+  let timerRef = useRef<{ [key: string]: number }>({});
 
   const showToast = (toastProps: {
     type: ToastType;
     message: string;
     duration: number;
   }) => {
-    const newToast = { id: uuidv4(), ...toastProps };
+    const toastId = uuidv4();
+    const newToast = { id: toastId, ...toastProps };
 
-    setToastList([newToast, ...toastList]);
-    if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
-      setToastList([]); // need to remove the toast which has it time completed
+    // Setting new toast list based on previous state
+    setToastList((prevToastList) => [newToast, ...prevToastList]);
+
+    // Assign timer id for each toastId
+    timerRef.current[toastId] = setTimeout(() => {
+      // Removing toast from list of which the timer has expired
+      setToastList((prevToastList) =>
+        prevToastList.filter((toast) => toast.id != toastId)
+      );
+      // deleting timerId from ref
+      delete timerRef.current[toastId];
     }, toastProps.duration);
   };
 
