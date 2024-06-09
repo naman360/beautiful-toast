@@ -1,24 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../styles/toast.module.css";
+import { ToastType } from "../types/toastTypes";
 
-export type ToastType = "success" | "error" | "info" | "warning";
-export type ToastPosition =
-  | "bottom-right"
-  | "bottom-left"
-  | "top-right"
-  | "top-left";
-
-export type ToastDataType = {
+type Props = {
   id: string;
   type: ToastType;
   message: string;
   duration: number;
-  onClose?: () => void;
+  onClose: (id: string) => void;
 };
 
-type Props = ToastDataType;
-
 const Toast = ({
+  id,
   type = "info",
   message = "This is an info",
   duration,
@@ -26,11 +19,14 @@ const Toast = ({
 }: Props) => {
   const [timerWidth, setTimerWidth] = useState(100);
   const timerRef = useRef<number>(duration);
+  const [toastRegistered, setToastRegistered] = useState(true);
 
   useEffect(() => {
+    setToastRegistered(true);
     const interval = setInterval(() => {
       if (timerRef.current > 0) {
         timerRef.current -= 100;
+        if (timerRef.current === 100) setToastRegistered(false);
         setTimerWidth((timerRef.current / duration) * 100);
       }
     }, 100);
@@ -39,11 +35,28 @@ const Toast = ({
   }, [duration]);
 
   const handleClose = () => {
-    if (typeof onClose === "function") onClose();
+    setToastRegistered(false);
+    setTimeout(() => {
+      onClose(id);
+    }, 100);
   };
 
+  const animationMap = {
+    slide: {
+      from: "slideIn",
+      to: "slideOut",
+    },
+  };
+  const animation = toastRegistered
+    ? animationMap.slide.from
+    : animationMap.slide.to;
   return (
-    <div className={`${styles.toastContainer} ${styles[type]}`}>
+    <div
+      className={`${styles.toastContainer} ${styles[type]} ${styles[animation]}`}
+      style={{
+        animationDuration: "0.1s",
+      }}
+    >
       <div className={`${styles.toastInfo}`}>
         <span>{message}</span>
         <span onClick={() => handleClose()} className={styles.closeButton}>
