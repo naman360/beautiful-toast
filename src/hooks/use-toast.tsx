@@ -25,18 +25,23 @@ const useToast = (position: ToastPosition) => {
     // Assign timer id for each toastId
     timerRef.current[toastId] = setTimeout(() => {
       // Removing toast from list of which the timer has expired
-      setToastList((prevToastList) =>
-        prevToastList.filter((toast) => toast.id != toastId)
-      );
+      handleOnClose(toastId);
       // deleting timerId from ref
       delete timerRef.current[toastId];
     }, toastProps.duration);
   };
 
+  const handleOnClose = (toastId: string) => {
+    setToastList((prevToastList) =>
+      prevToastList.filter((toast) => toast.id != toastId)
+    );
+  };
   const ToastComponent = (
     <div className={styles[position]}>
       {toastList.length > 0
-        ? toastList.map((toastInfo) => <Toast {...toastInfo} />)
+        ? toastList.map((toastInfo) => (
+            <Toast key={toastInfo.id} {...toastInfo} />
+          ))
         : null}
     </div>
   );
