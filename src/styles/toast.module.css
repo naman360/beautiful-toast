@@ -1,16 +1,24 @@
 .toastContainer {
   font-family: sans-serif;
-  padding: 10px;
   min-width: 200px;
+  width: 100%;
   margin: 10px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+
   justify-content: space-between;
   border-radius: 5px;
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
+.toastInfo {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
 .success {
   background-color: #4caf50;
 }
@@ -48,4 +56,9 @@
   position: fixed;
   top: 20px;
   left: 20px;
+}
+.timer {
+  background: #fff;
+  height: 5px;
+  transition: all 0.1s linear;
 }
