@@ -1,11 +1,15 @@
 import { useRef, useState } from "react";
-import Toast, {
-  ToastDataType,
-  ToastPosition,
-  ToastType,
-} from "../components/toast";
+import Toast from "../components/toast";
 import { v4 as uuidv4 } from "uuid";
 import styles from "../styles/toast.module.css";
+import { ToastPosition, ToastType } from "../types/toastTypes";
+
+export type ToastDataType = {
+  id: string;
+  type: ToastType;
+  message: string;
+  duration: number;
+};
 
 const useToast = (position: ToastPosition) => {
   const [toastList, setToastList] = useState<ToastDataType[]>([]);
@@ -40,7 +44,11 @@ const useToast = (position: ToastPosition) => {
     <div className={styles[position]}>
       {toastList.length > 0
         ? toastList.map((toastInfo) => (
-            <Toast key={toastInfo.id} {...toastInfo} />
+            <Toast
+              key={toastInfo.id}
+              {...toastInfo}
+              onClose={() => handleOnClose(toastInfo.id)}
+            />
           ))
         : null}
     </div>
