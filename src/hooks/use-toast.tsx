@@ -48,6 +48,7 @@ const useToast = (position: ToastPosition) => {
               key={toastInfo.id}
               {...toastInfo}
               onClose={() => handleOnClose(toastInfo.id)}
+              position={position}
             />
           ))
         : null}

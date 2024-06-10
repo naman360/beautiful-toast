@@ -5,11 +5,54 @@
   margin: 10px;
   display: flex;
   flex-direction: column;
-
   justify-content: space-between;
   border-radius: 5px;
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.slideIn {
+  animation-name: slideIn;
+}
+.slideOut {
+  animation-name: slideOut;
+}
+.slideInLeft {
+  animation-name: slideInLeft;
+}
+.slideOutLeft {
+  animation-name: slideOutLeft;
+}
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+@keyframes slideOut {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 .toastInfo {
   width: 100%;
