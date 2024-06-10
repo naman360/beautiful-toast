@@ -2,13 +2,14 @@ import { useRef, useState } from "react";
 import Toast from "../components/toast";
 import { v4 as uuidv4 } from "uuid";
 import styles from "../styles/toast.module.css";
-import { ToastPosition, ToastType } from "../types/toastTypes";
+import { ToastPosition, ToastTheme, ToastType } from "../types/toastTypes";
 
 export type ToastDataType = {
   id: string;
   type: ToastType;
   message: string;
   duration: number;
+  theme: ToastTheme;
 };
 
 const useToast = (position: ToastPosition) => {
@@ -20,9 +21,14 @@ const useToast = (position: ToastPosition) => {
     message: string;
     duration: number;
     description?: string;
+    theme?: ToastTheme;
   }) => {
     const toastId = uuidv4();
-    const newToast = { id: toastId, ...toastProps };
+    const newToast = {
+      id: toastId,
+      ...toastProps,
+      theme: toastProps.theme || "colored",
+    };
 
     // Setting new toast list based on previous state
     setToastList((prevToastList) => [newToast, ...prevToastList]);
@@ -41,6 +47,7 @@ const useToast = (position: ToastPosition) => {
       prevToastList.filter((toast) => toast.id != toastId)
     );
   };
+
   const ToastComponent = (
     <div className={styles[position]}>
       {toastList.length > 0

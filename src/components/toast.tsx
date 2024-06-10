@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../styles/toast.module.css";
-import { ToastPosition, ToastType } from "../types/toastTypes";
+import { ToastPosition, ToastTheme, ToastType } from "../types/toastTypes";
 import { animationMap } from "../utils/constants";
 
 type Props = {
@@ -11,6 +11,7 @@ type Props = {
   onClose: (id: string) => void;
   position: ToastPosition;
   description?: string;
+  theme: ToastTheme;
 };
 
 const Toast = ({
@@ -21,6 +22,7 @@ const Toast = ({
   onClose,
   position,
   description,
+  theme,
 }: Props) => {
   const [timerWidth, setTimerWidth] = useState(100);
   const timerRef = useRef<number>(duration);
@@ -51,9 +53,11 @@ const Toast = ({
   const animation = toastRegistered
     ? animationMap[dir].slide.from
     : animationMap[dir].slide.to;
+  const themeClass = theme === "colored" ? `colored-${type}` : type;
   return (
     <div
-      className={`${styles.toastContainer} ${styles[type]} ${styles[animation]}`}
+      className={`${styles.toastContainer} ${styles[themeClass]} ${styles[animation]}`}
+      data-theme={theme !== "colored" ? theme : ""}
       style={{
         animationDuration: "0.1s",
       }}

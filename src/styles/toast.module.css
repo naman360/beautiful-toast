@@ -1,15 +1,60 @@
 .toastContainer {
   font-family: sans-serif;
-  min-width: 200px;
+  min-width: 320px;
   width: 100%;
   margin: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-radius: 5px;
-  color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+/* Themes */
+[data-theme="dark"] {
+  background-color: #121212;
+  color: #fff;
+}
+[data-theme="light"] {
+  background-color: #fff;
+  color: #757575;
+}
+
+.success .timer {
+  background-color: #07bc0c;
+}
+.error .timer {
+  background-color: #e74c3c;
+}
+.info .timer {
+  background-color: #3498db;
+}
+.warning .timer {
+  background-color: #f1c40f;
+}
+.timer {
+  background: #fff;
+  height: 5px;
+  transition: all 0.1s linear;
+}
+.colored-success {
+  color: #fff;
+  background-color: #07bc0c;
+}
+.colored-error {
+  color: #fff;
+  background-color: #e74c3c;
+}
+.colored-info {
+  color: #fff;
+  background-color: #3498db;
+}
+.colored-warning {
+  color: #fff;
+  background-color: #f1c40f;
+}
+
+/* Animations */
+
 .slideIn {
   animation-name: slideIn;
 }
@@ -70,19 +115,10 @@
   margin-top: 10px;
   font-size: 14px;
 }
-.success {
-  background-color: #4caf50;
-}
-.error {
-  background-color: #f44336;
-}
-.info {
-  background-color: #2196f3;
-}
-.warning {
-  background-color: #ff9800;
-}
+
 .closeButton {
+  color: #000;
+  opacity: 0.3;
   margin-left: 5px;
   cursor: pointer;
   display: flex;
@@ -107,9 +143,4 @@
   position: fixed;
   top: 20px;
   left: 20px;
-}
-.timer {
-  background: #fff;
-  height: 5px;
-  transition: all 0.1s linear;
 }
