@@ -10,6 +10,7 @@ type Props = {
   duration: number;
   onClose: (id: string) => void;
   position: ToastPosition;
+  description?: string;
 };
 
 const Toast = ({
@@ -19,6 +20,7 @@ const Toast = ({
   duration,
   onClose,
   position,
+  description,
 }: Props) => {
   const [timerWidth, setTimerWidth] = useState(100);
   const timerRef = useRef<number>(duration);
@@ -57,10 +59,13 @@ const Toast = ({
       }}
     >
       <div className={`${styles.toastInfo}`}>
-        <span>{message}</span>
-        <span onClick={() => handleClose()} className={styles.closeButton}>
-          &times;
-        </span>
+        <div className={`${styles.toastTitle}`}>
+          <span>{message}</span>
+          <span onClick={() => handleClose()} className={styles.closeButton}>
+            &times;
+          </span>
+        </div>
+        {description && <span className={styles.toastDesc}>{description}</span>}
       </div>
       <div
         className={`${styles.timer}`}

@@ -19,6 +19,7 @@ const useToast = (position: ToastPosition) => {
     type: ToastType;
     message: string;
     duration: number;
+    description?: string;
   }) => {
     const toastId = uuidv4();
     const newToast = { id: toastId, ...toastProps };
