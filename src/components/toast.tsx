@@ -1,7 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../styles/toast.module.css";
 import { ToastPosition, ToastTheme, ToastType } from "../types/toastTypes";
-import { animationMap } from "../utils/constants";
+import { animationMap, typeColor } from "../utils/constants";
+import Svg from "./svg";
+import success from "../icons/success";
+import error from "../icons/error";
+import warning from "../icons/warning";
+import info from "../icons/info";
 
 type Props = {
   id: string;
@@ -54,6 +59,23 @@ const Toast = ({
     ? animationMap[dir].slide.from
     : animationMap[dir].slide.to;
   const themeClass = theme === "colored" ? `colored-${type}` : type;
+
+  let icon;
+  switch (type) {
+    case "success":
+      icon = success;
+      break;
+    case "error":
+      icon = error;
+      break;
+
+    case "info":
+      icon = info;
+      break;
+    case "warning":
+      icon = warning;
+      break;
+  }
   return (
     <div
       className={`${styles.toastContainer} ${styles[themeClass]} ${styles[animation]}`}
@@ -62,14 +84,35 @@ const Toast = ({
         animationDuration: "0.1s",
       }}
     >
-      <div className={`${styles.toastInfo}`}>
-        <div className={`${styles.toastTitle}`}>
-          <span>{message}</span>
-          <span onClick={() => handleClose()} className={styles.closeButton}>
-            &times;
-          </span>
+      <div className={styles.toastData}>
+        <div className={styles.toastText}>
+          <div className={styles.toastIcon}>
+            <Svg
+              fill={theme === "colored" ? "#fff" : typeColor[type]}
+              icon={icon}
+              width={20}
+              height={20}
+            />
+          </div>
+          <div className={`${styles.toastInfo}`}>
+            <div className={`${styles.toastTitle}`}>
+              <span>{message}</span>
+            </div>
+            {description && (
+              <span className={styles.toastDesc}>{description}</span>
+            )}
+          </div>
         </div>
-        {description && <span className={styles.toastDesc}>{description}</span>}
+        <span
+          onClick={() => handleClose()}
+          className={styles.closeButton}
+          style={{
+            color: theme === "light" ? "#000" : "#fff",
+            opacity: theme === "light" ? "0.3" : "1",
+          }}
+        >
+          &times;
+        </span>
       </div>
       <div
         className={`${styles.timer}`}
