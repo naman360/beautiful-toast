@@ -9,6 +9,16 @@
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+.toastData {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+.toastText {
+  display: flex;
+  padding: 16px 10px;
+  align-items: start;
+}
 /* Themes */
 [data-theme="dark"] {
   background-color: #121212;
@@ -101,28 +111,31 @@
 }
 .toastInfo {
   width: 100%;
-
-  padding: 10px;
+  padding: 0 10px;
   box-sizing: border-box;
 }
+
 .toastTitle {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 16px;
 }
+.toastIcon {
+  width: 20px;
+}
 .toastDesc {
-  margin-top: 10px;
+  display: block;
+  margin-top: 6px;
   font-size: 14px;
 }
 
 .closeButton {
-  color: #000;
-  opacity: 0.3;
   margin-left: 5px;
   cursor: pointer;
   display: flex;
   align-items: center;
+  padding: 6px 8px;
 }
 .bottom-right {
   position: fixed;
