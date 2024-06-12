@@ -62,7 +62,7 @@ const useToast = (position: ToastPosition, maxLimit: number) => {
       handleOnClose(toastId);
       // deleting timerId from ref
       delete timerRef.current[toastId];
-    }, toastProps.duration);
+    }, toastProps.duration + 500); // total duration= timer duration + animation delay (roughly)
   };
 
   const handleOnClose = (toastId: string) => {

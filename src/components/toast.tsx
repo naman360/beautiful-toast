@@ -33,7 +33,7 @@ const Toast = ({
   customStyles,
 }: Props) => {
   const [timerWidth, setTimerWidth] = useState(100);
-  const timerRef = useRef<number>(duration);
+  const timerRef = useRef<number>(duration + 300); //duration + delay in starting progress bar
   const [toastRegistered, setToastRegistered] = useState(true);
 
   useEffect(() => {
@@ -84,7 +84,7 @@ const Toast = ({
       data-theme={theme !== "colored" && theme !== "custom" ? theme : ""}
       style={{
         backgroundColor: customStyles?.bgColor,
-        animationDuration: "0.1s",
+        animationDuration: "0.5s",
       }}
     >
       <div className={styles.toastData}>
