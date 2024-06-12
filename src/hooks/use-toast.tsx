@@ -29,7 +29,7 @@ type ShowToastParams = {
   theme?: ToastTheme;
   customStyles?: CustomTheme;
 };
-const useToast = (position: ToastPosition) => {
+const useToast = (position: ToastPosition, maxLimit: number) => {
   const [toastList, setToastList] = useState<ToastDataType[]>([]);
   let timerRef = useRef<{ [key: string]: number }>({});
 
@@ -51,7 +51,10 @@ const useToast = (position: ToastPosition) => {
     };
 
     // Setting new toast list based on previous state
-    setToastList((prevToastList) => [newToast, ...prevToastList]);
+    setToastList((prevToastList) => {
+      if ([newToast, ...prevToastList].length > maxLimit) return prevToastList;
+      else return [newToast, ...prevToastList];
+    });
 
     // Assign timer id for each toastId
     timerRef.current[toastId] = setTimeout(() => {
