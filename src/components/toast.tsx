@@ -7,6 +7,7 @@ import success from "../icons/success";
 import error from "../icons/error";
 import warning from "../icons/warning";
 import info from "../icons/info";
+import { CustomTheme } from "../hooks/use-toast";
 
 type Props = {
   id: string;
@@ -17,6 +18,7 @@ type Props = {
   position: ToastPosition;
   description?: string;
   theme: ToastTheme;
+  customStyles?: CustomTheme;
 };
 
 const Toast = ({
@@ -28,6 +30,7 @@ const Toast = ({
   position,
   description,
   theme,
+  customStyles,
 }: Props) => {
   const [timerWidth, setTimerWidth] = useState(100);
   const timerRef = useRef<number>(duration);
@@ -59,7 +62,6 @@ const Toast = ({
     ? animationMap[dir].slide.from
     : animationMap[dir].slide.to;
   const themeClass = theme === "colored" ? `colored-${type}` : type;
-
   let icon;
   switch (type) {
     case "success":
@@ -79,8 +81,9 @@ const Toast = ({
   return (
     <div
       className={`${styles.toastContainer} ${styles[themeClass]} ${styles[animation]}`}
-      data-theme={theme !== "colored" ? theme : ""}
+      data-theme={theme !== "colored" && theme !== "custom" ? theme : ""}
       style={{
+        backgroundColor: customStyles?.bgColor,
         animationDuration: "0.1s",
       }}
     >
@@ -95,7 +98,13 @@ const Toast = ({
             />
           </div>
           <div className={`${styles.toastInfo}`}>
-            <div className={`${styles.toastTitle}`}>
+            <div
+              className={`${styles.toastTitle}`}
+              style={{
+                fontSize: customStyles?.titleSize,
+                color: customStyles?.titleColor,
+              }}
+            >
               <span>{message}</span>
             </div>
             {description && (
@@ -117,6 +126,8 @@ const Toast = ({
       <div
         className={`${styles.timer}`}
         style={{
+          backgroundColor: customStyles?.timerColor,
+          height: customStyles?.timerHeight,
           width: `${timerWidth}%`,
         }}
       ></div>

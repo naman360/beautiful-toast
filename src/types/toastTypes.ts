@@ -12,4 +12,4 @@ export type ToastPosition =
   | "top-right"
   | "top-left";
 
-export type ToastTheme = "light" | "dark" | "colored";
+export type ToastTheme = "light" | "dark" | "colored" | "custom";

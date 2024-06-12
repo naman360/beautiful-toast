@@ -12,17 +12,37 @@ export type ToastDataType = {
   theme: ToastTheme;
 };
 
+export type CustomTheme = {
+  bgColor?: string;
+  timerColor?: string;
+  timerHeight?: string;
+  titleColor?: string;
+  titleSize?: string;
+  descriptionColor?: string;
+  descriptionSize?: string;
+};
+type ShowToastParams = {
+  type: ToastType;
+  message: string;
+  duration: number;
+  description?: string;
+  theme?: ToastTheme;
+  customStyles?: CustomTheme;
+};
 const useToast = (position: ToastPosition) => {
   const [toastList, setToastList] = useState<ToastDataType[]>([]);
   let timerRef = useRef<{ [key: string]: number }>({});
 
-  const showToast = (toastProps: {
-    type: ToastType;
-    message: string;
-    duration: number;
-    description?: string;
-    theme?: ToastTheme;
-  }) => {
+  const showToast = (toastProps: ShowToastParams) => {
+    if (
+      (toastProps.theme !== "custom" && toastProps.customStyles) ||
+      (toastProps.theme === "custom" && !toastProps.customStyles)
+    ) {
+      throw new Error(
+        "Pass theme as 'custom' and customStyles object to apply custom styles"
+      );
+    }
+
     const toastId = uuidv4();
     const newToast = {
       id: toastId,
