@@ -116,8 +116,12 @@ const Toast = ({
           onClick={() => handleClose()}
           className={styles.closeButton}
           style={{
-            color: theme === "light" ? "#000" : "#fff",
-            opacity: theme === "light" ? "0.3" : "1",
+            color: customStyles?.closeButtonColor
+              ? customStyles?.closeButtonColor
+              : theme === "light"
+              ? "#757575"
+              : "#fff",
+            fontSize: customStyles?.closeButtonSize,
           }}
         >
           &times;

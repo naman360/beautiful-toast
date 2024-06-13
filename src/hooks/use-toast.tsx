@@ -20,6 +20,8 @@ export type CustomTheme = {
   titleSize?: string;
   descriptionColor?: string;
   descriptionSize?: string;
+  closeButtonColor: string;
+  closeButtonSize: string;
 };
 type ShowToastParams = {
   type: ToastType;
