@@ -19,6 +19,8 @@ type Props = {
   description?: string;
   theme: ToastTheme;
   customStyles?: CustomTheme;
+  customIcon?: React.ReactNode;
+  iconFill?: string;
 };
 
 const Toast = ({
@@ -31,6 +33,8 @@ const Toast = ({
   description,
   theme,
   customStyles,
+  customIcon,
+  iconFill,
 }: Props) => {
   const [timerWidth, setTimerWidth] = useState(100);
   const timerRef = useRef<number>(duration + 300); //duration + delay in starting progress bar
@@ -63,21 +67,24 @@ const Toast = ({
     : animationMap[dir].slide.to;
   const themeClass = theme === "colored" ? `colored-${type}` : type;
   let icon;
-  switch (type) {
-    case "success":
-      icon = success;
-      break;
-    case "error":
-      icon = error;
-      break;
+  if (!customIcon) {
+    switch (type) {
+      case "success":
+        icon = success;
+        break;
+      case "error":
+        icon = error;
+        break;
 
-    case "info":
-      icon = info;
-      break;
-    case "warning":
-      icon = warning;
-      break;
-  }
+      case "info":
+        icon = info;
+        break;
+      case "warning":
+        icon = warning;
+        break;
+    }
+  } else icon = customIcon;
+
   return (
     <div
       className={`${styles.toastContainer} ${styles[themeClass]} ${styles[animation]}`}
@@ -91,7 +98,13 @@ const Toast = ({
         <div className={styles.toastText}>
           <div className={styles.toastIcon}>
             <Svg
-              fill={theme === "colored" ? "#fff" : typeColor[type]}
+              fill={
+                iconFill
+                  ? iconFill
+                  : theme === "colored"
+                  ? "#fff"
+                  : typeColor[type]
+              }
               icon={icon}
               width={20}
               height={20}

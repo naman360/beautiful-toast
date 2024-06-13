@@ -10,6 +10,9 @@ export type ToastDataType = {
   message: string;
   duration: number;
   theme: ToastTheme;
+  customStyles?: CustomTheme;
+  icon?: React.ReactNode;
+  iconFill?: string;
 };
 
 export type CustomTheme = {
@@ -20,8 +23,8 @@ export type CustomTheme = {
   titleSize?: string;
   descriptionColor?: string;
   descriptionSize?: string;
-  closeButtonColor: string;
-  closeButtonSize: string;
+  closeButtonColor?: string;
+  closeButtonSize?: string;
 };
 type ShowToastParams = {
   type: ToastType;
@@ -30,6 +33,8 @@ type ShowToastParams = {
   description?: string;
   theme?: ToastTheme;
   customStyles?: CustomTheme;
+  icon?: React.ReactNode;
+  iconFill?: string;
 };
 const useToast = (position: ToastPosition, maxLimit: number) => {
   const [toastList, setToastList] = useState<ToastDataType[]>([]);
@@ -80,6 +85,7 @@ const useToast = (position: ToastPosition, maxLimit: number) => {
             <Toast
               key={toastInfo.id}
               {...toastInfo}
+              customIcon={toastInfo?.icon}
               onClose={() => handleOnClose(toastInfo.id)}
               position={position}
             />
