@@ -38,7 +38,7 @@ type ShowToastParams = {
 };
 const useToast = (position: ToastPosition, maxLimit: number) => {
   const [toastList, setToastList] = useState<ToastDataType[]>([]);
-  let timerRef = useRef<{ [key: string]: number }>({});
+  let timerRef = useRef<{ [key: string]: NodeJS.Timeout }>({});
 
   const showToast = (toastProps: ShowToastParams) => {
     if (
