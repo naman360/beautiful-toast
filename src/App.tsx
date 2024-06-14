@@ -2,7 +2,7 @@ import "./App.css";
 import useToast from "./hooks/use-toast";
 
 function App() {
-  const { ToastComponent, showToast } = useToast("top-left");
+  const { ToastComponent, showToast } = useToast("top-left", 5);
   const handleToast = () => {
     showToast({
       type: "warning",
