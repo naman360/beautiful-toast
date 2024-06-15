@@ -8,6 +8,8 @@
 
 ![ScreenRecording2024-06-14at11 42 34PM-ezgif com-video-to-gif-converter](https://github.com/naman360/beautiful-toast/assets/40193621/701b7dc8-c827-4b2b-8071-88c359d72636)
 
+## Demo
+[Codesandbox Playground](https://codesandbox.io/p/devbox/tender-morning-d75f68)
 
 ## Installation
 
