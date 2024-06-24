@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import Toast from "../components/toast";
-import { v4 as uuidv4 } from "uuid";
 import styles from "../styles/toast.module.css";
 import { ToastPosition, ToastTheme, ToastType } from "../types/toastTypes";
+import { randomId } from "../utils/helper";
 
 export type ToastDataType = {
   id: string;
@@ -50,7 +50,7 @@ const useToast = (position: ToastPosition, maxLimit: number) => {
       );
     }
 
-    const toastId = uuidv4();
+    const toastId = randomId();
     const newToast = {
       id: toastId,
       ...toastProps,
